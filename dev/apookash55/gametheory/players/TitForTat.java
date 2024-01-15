@@ -1,5 +1,6 @@
 package dev.apookash55.gametheory.players;
 
+import dev.apookash55.gametheory.Decision;
 import dev.apookash55.gametheory.Player;
 
 public class TitForTat extends Player {
@@ -8,10 +9,10 @@ public class TitForTat extends Player {
     }
 
     @Override
-    protected char makeDecision() {
+    protected Decision makeDecision() {
         if(currentAttempt > 0) {
             return attempts[currentAttempt-1][1];
         }
-        return 'C';
+        return Decision.COOPERATE;
     }
 }

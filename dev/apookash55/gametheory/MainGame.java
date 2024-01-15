@@ -16,7 +16,7 @@ public class MainGame {
         String pack = "dev.apookash55.gametheory.players.";
 
         Path workingDir = Paths.get("");
-        String pathString = workingDir.toAbsolutePath().toString() + path;
+        String pathString = workingDir.toAbsolutePath() + path;
         List<String> files = listFilesUsingJavaIO(pathString);
 
         Player[] players = new Player[files.size()];
@@ -93,21 +93,21 @@ public class MainGame {
 
     private static Result playGame(Player player1, Player player2) {
         for(int i = 0; i < 200; i++) {
-            char p1 = player1.makeDecision();
-            char p2 = player2.makeDecision();
-            if(p1 == 'C' && p2 == 'C') {
+            Decision p1 = player1.makeDecision();
+            Decision p2 = player2.makeDecision();
+            if(p1 == Decision.COOPERATE && p2 == Decision.COOPERATE) {
                 player1.recordAttempt(3, p1, p2);
                 player2.recordAttempt(3, p2, p1);
             }
-            else if(p1 == 'C' && p2 == 'D') {
+            else if(p1 == Decision.COOPERATE && p2 == Decision.DEFECT) {
                 player1.recordAttempt(0, p1, p2);
                 player2.recordAttempt(5, p2, p1);
             }
-            else if(p1 == 'D' && p2 == 'C') {
+            else if(p1 == Decision.DEFECT && p2 == Decision.COOPERATE) {
                 player1.recordAttempt(5, p1, p2);
                 player2.recordAttempt(0, p2, p1);
             }
-            else if(p1 == 'D' && p2 == 'D') {
+            else if(p1 == Decision.DEFECT && p2 == Decision.DEFECT) {
                 player1.recordAttempt(1, p1, p2);
                 player2.recordAttempt(1, p2, p1);
             }

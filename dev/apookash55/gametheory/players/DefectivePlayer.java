@@ -1,5 +1,6 @@
 package dev.apookash55.gametheory.players;
 
+import dev.apookash55.gametheory.Decision;
 import dev.apookash55.gametheory.Player;
 
 public class DefectivePlayer extends Player {
@@ -9,7 +10,7 @@ public class DefectivePlayer extends Player {
     }
 
     @Override
-    public char makeDecision() {
-        return 'D';
+    public Decision makeDecision() {
+        return Decision.DEFECT;
     }
 }
