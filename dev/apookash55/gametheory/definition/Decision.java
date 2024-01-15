@@ -1,4 +1,4 @@
-package dev.apookash55.gametheory;
+package dev.apookash55.gametheory.definition;
 
 public enum Decision {
     COOPERATE('C'),

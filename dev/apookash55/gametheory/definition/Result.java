@@ -1,11 +1,11 @@
-package dev.apookash55.gametheory;
+package dev.apookash55.gametheory.definition;
 
 public class Result {
     private final int player1;
     private final int player2;
     private final String attempts;
 
-    Result(int x, int y, String attempts) {
+    public Result(int x, int y, String attempts) {
         player1 = x;
         player2 = y;
         this.attempts = attempts;

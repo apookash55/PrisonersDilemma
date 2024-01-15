@@ -1,4 +1,4 @@
-package dev.apookash55.gametheory;
+package dev.apookash55.gametheory.definition;
 
 public abstract class Player {
     protected int score;
@@ -13,7 +13,7 @@ public abstract class Player {
         currentAttempt = 0;
     }
 
-    protected abstract Decision makeDecision();
+    public abstract Decision makeDecision();
 
     public void recordAttempt(int currentScore, Decision myChoice, Decision playerChoice) {
         score += currentScore;

@@ -1,5 +1,9 @@
 package dev.apookash55.gametheory;
 
+import dev.apookash55.gametheory.definition.Decision;
+import dev.apookash55.gametheory.definition.Player;
+import dev.apookash55.gametheory.definition.Result;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.lang.reflect.Constructor;
@@ -40,10 +44,12 @@ public class MainGame {
                 Result res = playGame(players[i], players[j]);
                 playersScores.put(players[i], playersScores.get(players[i]) + res.getPlayer1());
                 playersScores.put(players[j], playersScores.get(players[j]) + res.getPlayer2());
+                String player1Name = players[i].getClass().getSimpleName();
+                String player2Name = players[j].getClass().getSimpleName();
                 matches.append(count).append(", ")
-                        .append(players[i].getClass().getSimpleName()).append(", ").append(res.getPlayer1()).append(", ")
-                        .append(players[j].getClass().getSimpleName()).append(", ").append(res.getPlayer2()).append("\n");
-                writeToCSV("matches", ("match" + count), res.getAttempts());
+                        .append(player1Name).append(", ").append(res.getPlayer1()).append(", ")
+                        .append(player2Name).append(", ").append(res.getPlayer2()).append("\n");
+                writeToCSV("matches", (count + "_" + player1Name + "VS" + player2Name), res.getAttempts());
                 ++count;
             }
         }

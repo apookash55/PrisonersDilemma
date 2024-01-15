@@ -5,19 +5,21 @@ import dev.apookash55.gametheory.definition.Player;
 
 import java.util.Random;
 
-public class RandomDefector extends Player {
-
+public class RandomPlayer extends Player {
     private final Random random = new Random();
-    public RandomDefector(int x) {
+
+    public RandomPlayer(int x) {
         super(x);
     }
 
     @Override
     public Decision makeDecision() {
-        int x = random.nextInt(10);
-        if (x >= 7) {
+        int x = random.nextInt(2);
+        if (x == 1) {
+            return Decision.COOPERATE;
+        }
+        else {
             return Decision.DEFECT;
         }
-        return Decision.COOPERATE;
     }
 }
