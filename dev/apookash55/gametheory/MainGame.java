@@ -15,6 +15,12 @@ import java.util.stream.Stream;
 
 public class MainGame {
 
+    private static final int COOPERATIVE_WIN = 3;
+    private static final int DEFECTIVE_WIN = 1;
+    private static final int ABSOLUTE_WIN = 5;
+    private static final int ABSOLUTE_LOSS = 0;
+    private static final int TOTAL_ATTEMTPS = 200;
+
     public static void main(String[] args) throws Exception{
         String path = "/dev/apookash55/gametheory/players";
         String pack = "dev.apookash55.gametheory.players.";
@@ -31,7 +37,7 @@ public class MainGame {
             String className = pack + files.get(i).split("\\.")[0];
             Class<?> c = Class.forName(className);
             Constructor<?> cons = c.getDeclaredConstructor(int.class);
-            players[i] = (Player) cons.newInstance(200);
+            players[i] = (Player) cons.newInstance(TOTAL_ATTEMTPS);
             playersScores.put(players[i], 0);
         }
 
@@ -56,7 +62,9 @@ public class MainGame {
 
         playersScores = sortByValue(playersScores);
 
+        System.out.println("------ Final Score ------");
         for(Player player : playersScores.keySet()) {
+            System.out.println(player.getClass().getSimpleName() + " : " + playersScores.get(player));
             result.append(player.getClass().getSimpleName()).append(", ").append(playersScores.get(player)).append("\n");
         }
         writeToCSV(null, "results", result.toString());
@@ -83,6 +91,34 @@ public class MainGame {
         }
     }
 
+    private static Result playGame(Player player1, Player player2) {
+        for(int i = 0; i < 200; i++) {
+            Decision p1 = player1.makeDecision();
+            Decision p2 = player2.makeDecision();
+            if(p1 == Decision.COOPERATE && p2 == Decision.COOPERATE) {
+                player1.recordAttempt(COOPERATIVE_WIN, p1, p2);
+                player2.recordAttempt(COOPERATIVE_WIN, p2, p1);
+            }
+            else if(p1 == Decision.COOPERATE && p2 == Decision.DEFECT) {
+                player1.recordAttempt(ABSOLUTE_LOSS, p1, p2);
+                player2.recordAttempt(ABSOLUTE_WIN, p2, p1);
+            }
+            else if(p1 == Decision.DEFECT && p2 == Decision.COOPERATE) {
+                player1.recordAttempt(ABSOLUTE_WIN, p1, p2);
+                player2.recordAttempt(ABSOLUTE_LOSS, p2, p1);
+            }
+            else if(p1 == Decision.DEFECT && p2 == Decision.DEFECT) {
+                player1.recordAttempt(DEFECTIVE_WIN, p1, p2);
+                player2.recordAttempt(DEFECTIVE_WIN, p2, p1);
+            }
+        }
+        String attempts = Player.getAttempts(player1, player2);
+        Result res =  new Result(player1.getScore(), player2.getScore(), attempts);
+        player1.clearAttempt();
+        player2.clearAttempt();
+        return res;
+    }
+
     private static HashMap<Player, Integer> sortByValue(HashMap<Player, Integer> hm)
     {
         List<Map.Entry<Player, Integer> > list =
@@ -95,34 +131,6 @@ public class MainGame {
             temp.put(aa.getKey(), aa.getValue());
         }
         return temp;
-    }
-
-    private static Result playGame(Player player1, Player player2) {
-        for(int i = 0; i < 200; i++) {
-            Decision p1 = player1.makeDecision();
-            Decision p2 = player2.makeDecision();
-            if(p1 == Decision.COOPERATE && p2 == Decision.COOPERATE) {
-                player1.recordAttempt(3, p1, p2);
-                player2.recordAttempt(3, p2, p1);
-            }
-            else if(p1 == Decision.COOPERATE && p2 == Decision.DEFECT) {
-                player1.recordAttempt(0, p1, p2);
-                player2.recordAttempt(5, p2, p1);
-            }
-            else if(p1 == Decision.DEFECT && p2 == Decision.COOPERATE) {
-                player1.recordAttempt(5, p1, p2);
-                player2.recordAttempt(0, p2, p1);
-            }
-            else if(p1 == Decision.DEFECT && p2 == Decision.DEFECT) {
-                player1.recordAttempt(1, p1, p2);
-                player2.recordAttempt(1, p2, p1);
-            }
-        }
-        String attempts = Player.getAttempts(player1, player2);
-        Result res =  new Result(player1.getScore(), player2.getScore(), attempts);
-        player1.clearAttempt();
-        player2.clearAttempt();
-        return res;
     }
 
     private static List<String> listFilesUsingJavaIO(String dir) {
