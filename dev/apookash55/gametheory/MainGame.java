@@ -75,10 +75,11 @@ public class MainGame {
         try {
             if (dirName != null) {
                 File file = new File(dirName, fileName + ".csv");
-                new File(file.getParent()).mkdir();
-                FileWriter fileWriter = new FileWriter(dirName + "/" + fileName + ".csv");
-                fileWriter.append(data);
-                fileWriter.close();
+                if (new File(file.getParent()).mkdir()) {
+                    FileWriter fileWriter = new FileWriter(dirName + "/" + fileName + ".csv");
+                    fileWriter.append(data);
+                    fileWriter.close();
+                }
             }
             else {
                 FileWriter fileWriter = new FileWriter(fileName + ".csv");
