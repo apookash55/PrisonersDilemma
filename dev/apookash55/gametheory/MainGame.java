@@ -36,8 +36,8 @@ public class MainGame {
         for (int i = 0; i < totalPlayers; i++) {
             String className = PACKAGE_PATH + files.get(i).split("\\.")[0];
             Class<?> c = Class.forName(className);
-            Constructor<?> cons = c.getDeclaredConstructor(int.class);
-            players[i] = (Player) cons.newInstance(TOTAL_ROUNDS);
+            Constructor<?> cons = c.getDeclaredConstructor();
+            players[i] = (Player) cons.newInstance();
             playersScores.put(players[i], 0);
         }
 

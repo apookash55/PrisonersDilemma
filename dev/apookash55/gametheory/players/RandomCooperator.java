@@ -8,9 +8,6 @@ import java.util.Random;
 public class RandomCooperator extends Player {
 
     private final Random random = new Random();
-    public RandomCooperator(int x) {
-        super(x);
-    }
 
     @Override
     public Decision makeDecision() {
