@@ -1,0 +1,16 @@
+Match, Player 1, Player 1 Score, Player 2, Player 2 Score
+1, RandomPlayer, 792, CooperativePlayer, 312
+2, RandomPlayer, 600, RandomDefector, 395
+3, RandomPlayer, 460, TitForTat, 455
+4, RandomPlayer, 106, DefectivePlayer, 576
+5, RandomPlayer, 320, RandomCooperator, 510
+6, CooperativePlayer, 399, RandomDefector, 734
+7, CooperativePlayer, 600, TitForTat, 600
+8, CooperativePlayer, 0, DefectivePlayer, 1000
+9, CooperativePlayer, 177, RandomCooperator, 882
+10, RandomDefector, 501, TitForTat, 496
+11, RandomDefector, 62, DefectivePlayer, 752
+12, RandomDefector, 290, RandomCooperator, 645
+13, TitForTat, 199, DefectivePlayer, 204
+14, TitForTat, 387, RandomCooperator, 387
+15, DefectivePlayer, 428, RandomCooperator, 143
