@@ -1,6 +1,7 @@
 package dev.apookash55.gametheory;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.lang.reflect.Constructor;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +13,7 @@ public class MainGame {
 
     public static void main(String[] args) throws Exception{
         String path = "/dev/apookash55/gametheory/players";
-        String pack = "dev.apoorv.gametheory.players.";
+        String pack = "dev.apookash55.gametheory.players.";
 
         Path workingDir = Paths.get("");
         String pathString = workingDir.toAbsolutePath().toString() + path;
@@ -31,26 +32,52 @@ public class MainGame {
         }
 
         int count = 1;
+        StringBuilder result = new StringBuilder("Player, Total Score\n");
+        StringBuilder matches = new StringBuilder("Match, Player 1, Player 1 Score, Player 2, Player 2 Score\n");
+
         for(int i = 0; i < totalPlayers; i++) {
             for(int j = i + 1; j < totalPlayers; j++) {
-                System.out.println("------ Match " + count++ + " ------");
                 Result res = playGame(players[i], players[j]);
                 playersScores.put(players[i], playersScores.get(players[i]) + res.getPlayer1());
                 playersScores.put(players[j], playersScores.get(players[j]) + res.getPlayer2());
-                System.out.println(players[i].getClass().getSimpleName() + " : " + res.getPlayer1() +
-                        "\n" + players[j].getClass().getSimpleName() + " : " + res.getPlayer2());
+                matches.append(count).append(", ")
+                        .append(players[i].getClass().getSimpleName()).append(", ").append(res.getPlayer1()).append(", ")
+                        .append(players[j].getClass().getSimpleName()).append(", ").append(res.getPlayer2()).append("\n");
+                writeToCSV("matches", ("match" + count), res.getAttempts());
+                ++count;
             }
         }
 
         playersScores = sortByValue(playersScores);
 
-        System.out.println("------ Final Score ------");
         for(Player player : playersScores.keySet()) {
-            System.out.println("Player " + player.getClass().getSimpleName() + " : " + playersScores.get(player));
+            result.append(player.getClass().getSimpleName()).append(", ").append(playersScores.get(player)).append("\n");
+        }
+        writeToCSV(null, "results", result.toString());
+        writeToCSV(null, "matches", matches.toString());
+    }
+
+    private static void writeToCSV(String dirName, String fileName, String data) {
+        try {
+            if (dirName != null) {
+                File file = new File(dirName, fileName + ".csv");
+                new File(file.getParent()).mkdir();
+                FileWriter fileWriter = new FileWriter(dirName + "/" + fileName + ".csv");
+                fileWriter.append(data);
+                fileWriter.close();
+            }
+            else {
+                FileWriter fileWriter = new FileWriter(fileName + ".csv");
+                fileWriter.append(data);
+                fileWriter.close();
+            }
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
-    public static HashMap<Player, Integer> sortByValue(HashMap<Player, Integer> hm)
+    private static HashMap<Player, Integer> sortByValue(HashMap<Player, Integer> hm)
     {
         List<Map.Entry<Player, Integer> > list =
                 new LinkedList<>(hm.entrySet());
@@ -85,8 +112,8 @@ public class MainGame {
                 player2.recordAttempt(1, p2, p1);
             }
         }
-        System.out.println(Player.getAttempts(player1, player2));
-        Result res =  new Result(player1.getScore(), player2.getScore());
+        String attempts = Player.getAttempts(player1, player2);
+        Result res =  new Result(player1.getScore(), player2.getScore(), attempts);
         player1.clearAttempt();
         player2.clearAttempt();
         return res;

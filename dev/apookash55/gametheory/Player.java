@@ -35,14 +35,14 @@ public abstract class Player {
     public static String getAttempts(Player player1, Player player2) {
         int totalAttempts = player1.totalAttempts;
         char[][] attempts = player1.attempts;
-        StringBuilder res = new StringBuilder("Player 1 : ");
+        StringBuilder res = new StringBuilder(player1.getClass().getSimpleName() + ", ");
         for (int i = 0; i < totalAttempts; i++) {
             if (i != totalAttempts-1)
                 res.append(attempts[i][0]).append(", ");
             else
                 res.append(attempts[i][0]);
         }
-        res.append("\n").append("Player 2 : ");
+        res.append("\n").append(player2.getClass().getSimpleName()).append(", ");
         for (int i = 0; i < totalAttempts; i++) {
             if (i != totalAttempts-1)
                 res.append(attempts[i][1]).append(", ");
