@@ -1,4 +1,4 @@
-package dev.apoorv.gametheory;
+package dev.apookash55.gametheory;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class MainGame {
 
     public static void main(String[] args) throws Exception{
-        String path = "/dev/apoorv/gametheory/players";
+        String path = "/dev/apookash55/gametheory/players";
         String pack = "dev.apoorv.gametheory.players.";
 
         Path workingDir = Paths.get("");

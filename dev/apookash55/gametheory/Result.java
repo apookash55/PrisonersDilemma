@@ -1,4 +1,4 @@
-package dev.apoorv.gametheory;
+package dev.apookash55.gametheory;
 
 public class Result {
     private final int player1;

@@ -1,6 +1,6 @@
-package dev.apoorv.gametheory.players;
+package dev.apookash55.gametheory.players;
 
-import dev.apoorv.gametheory.Player;
+import dev.apookash55.gametheory.Player;
 
 public class DefectivePlayer extends Player {
 

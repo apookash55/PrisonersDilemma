@@ -1,4 +1,4 @@
-package dev.apoorv.gametheory;
+package dev.apookash55.gametheory;
 
 public abstract class Player {
     protected int score;
