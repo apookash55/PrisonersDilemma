@@ -2,19 +2,19 @@ package dev.apookash55.gametheory.definition;
 
 public abstract class Player {
     private int score;
-    private Decision[][] roundHistory;
+    private Decision[][] roundsHistory;
     private final int totalRounds;
     private int currentRound;
 
     public Player(int x) {
         score = 0;
-        roundHistory = new Decision[x][2];
+        roundsHistory = new Decision[x][2];
         totalRounds = x;
         currentRound = 0;
     }
 
-    public Decision[][] getRoundHistory() {
-        return roundHistory;
+    public Decision[][] getRoundsHistory() {
+        return roundsHistory;
     }
 
     public int getTotalRounds() {
@@ -29,23 +29,32 @@ public abstract class Player {
         return score;
     }
 
+    public Decision[] getLastRoundHistory() {
+        if (currentRound > 0) {
+            return roundsHistory[currentRound - 1];
+        }
+        else {
+            return null;
+        }
+    }
+
     public abstract Decision makeDecision();
 
     public void recordAttempt(int currentScore, Decision myChoice, Decision playerChoice) {
         score += currentScore;
-        roundHistory[currentRound][0] = myChoice;
-        roundHistory[currentRound][1] = playerChoice;
+        roundsHistory[currentRound][0] = myChoice;
+        roundsHistory[currentRound][1] = playerChoice;
         currentRound += 1;
     }
 
     public void clearAttempts() {
         score = 0;
-        roundHistory = new Decision[totalRounds][2];
+        roundsHistory = new Decision[totalRounds][2];
         currentRound = 0;
     }
 
     public static String generateResult(Player player1, Player player2) {
-        Decision[][] attempts = player1.roundHistory;
+        Decision[][] attempts = player1.roundsHistory;
         StringBuilder res = new StringBuilder(player1.getClass().getSimpleName() + ", " + player2.getClass().getSimpleName() + '\n');
         for (int i = 0; i < player1.totalRounds; i++) {
             res.append(attempts[i][0].toChar()).append(", ").append(attempts[i][1].toChar()).append('\n');

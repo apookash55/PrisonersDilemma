@@ -19,7 +19,7 @@ public class MainGame {
     private static final int DEFECTIVE_WIN = 1;
     private static final int ABSOLUTE_WIN = 5;
     private static final int ABSOLUTE_LOSS = 0;
-    private static final int TOTAL_ROUNDS = 200;
+    private static final int TOTAL_ROUNDS = 1000;
     private static final String PATH = "/dev/apookash55/gametheory/players";
     private static final String PACKAGE_PATH = "dev.apookash55.gametheory.players.";
 
@@ -92,7 +92,7 @@ public class MainGame {
     }
 
     private static Result playGame(Player player1, Player player2) {
-        for(int i = 0; i < 200; i++) {
+        for(int i = 0; i < TOTAL_ROUNDS; i++) {
             Decision p1 = player1.makeDecision();
             Decision p2 = player2.makeDecision();
             if(p1 == Decision.COOPERATE && p2 == Decision.COOPERATE) {
