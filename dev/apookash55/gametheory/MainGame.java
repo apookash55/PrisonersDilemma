@@ -46,7 +46,7 @@ public class MainGame {
         StringBuilder matches = new StringBuilder("Match, Player 1, Player 1 Score, Player 2, Player 2 Score\n");
 
         for(int i = 0; i < totalPlayers; i++) {
-            for(int j = i + 1; j < totalPlayers; j++) {
+            for(int j = 0; j < totalPlayers; j++) {
                 Result res = playGame(players[i], players[j]);
                 playersScores.put(players[i], playersScores.get(players[i]) + res.getPlayer1());
                 playersScores.put(players[j], playersScores.get(players[j]) + res.getPlayer2());
