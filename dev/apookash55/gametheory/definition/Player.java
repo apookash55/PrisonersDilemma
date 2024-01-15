@@ -1,53 +1,54 @@
 package dev.apookash55.gametheory.definition;
 
 public abstract class Player {
-    protected int score;
-    protected Decision[][] attempts;
-    protected final int totalAttempts;
-    protected int currentAttempt;
+    private int score;
+    private Decision[][] roundHistory;
+    private final int totalRounds;
+    private int currentRound;
 
     public Player(int x) {
         score = 0;
-        attempts = new Decision[x][2];
-        totalAttempts = x;
-        currentAttempt = 0;
+        roundHistory = new Decision[x][2];
+        totalRounds = x;
+        currentRound = 0;
     }
 
-    public abstract Decision makeDecision();
-
-    public void recordAttempt(int currentScore, Decision myChoice, Decision playerChoice) {
-        score += currentScore;
-        attempts[currentAttempt][0] = myChoice;
-        attempts[currentAttempt][1] = playerChoice;
-        currentAttempt += 1;
+    public Decision[][] getRoundHistory() {
+        return roundHistory;
     }
 
-    public void clearAttempt() {
-        score = 0;
-        attempts = new Decision[totalAttempts][2];
-        currentAttempt = 0;
+    public int getTotalRounds() {
+        return totalRounds;
+    }
+
+    public int getCurrentRound() {
+        return currentRound;
     }
 
     public int getScore() {
         return score;
     }
 
-    public static String getAttempts(Player player1, Player player2) {
-        int totalAttempts = player1.totalAttempts;
-        Decision[][] attempts = player1.attempts;
-        StringBuilder res = new StringBuilder(player1.getClass().getSimpleName() + ", ");
-        for (int i = 0; i < totalAttempts; i++) {
-            if (i != totalAttempts-1)
-                res.append(attempts[i][0].toChar()).append(", ");
-            else
-                res.append(attempts[i][0].toChar());
-        }
-        res.append("\n").append(player2.getClass().getSimpleName()).append(", ");
-        for (int i = 0; i < totalAttempts; i++) {
-            if (i != totalAttempts-1)
-                res.append(attempts[i][1].toChar()).append(", ");
-            else
-                res.append(attempts[i][1].toChar());
+    public abstract Decision makeDecision();
+
+    public void recordAttempt(int currentScore, Decision myChoice, Decision playerChoice) {
+        score += currentScore;
+        roundHistory[currentRound][0] = myChoice;
+        roundHistory[currentRound][1] = playerChoice;
+        currentRound += 1;
+    }
+
+    public void clearAttempts() {
+        score = 0;
+        roundHistory = new Decision[totalRounds][2];
+        currentRound = 0;
+    }
+
+    public static String generateResult(Player player1, Player player2) {
+        Decision[][] attempts = player1.roundHistory;
+        StringBuilder res = new StringBuilder(player1.getClass().getSimpleName() + ", " + player2.getClass().getSimpleName() + '\n');
+        for (int i = 0; i < player1.totalRounds; i++) {
+            res.append(attempts[i][0].toChar()).append(", ").append(attempts[i][1].toChar()).append('\n');
         }
         return res.toString();
     }

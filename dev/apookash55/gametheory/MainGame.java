@@ -19,14 +19,14 @@ public class MainGame {
     private static final int DEFECTIVE_WIN = 1;
     private static final int ABSOLUTE_WIN = 5;
     private static final int ABSOLUTE_LOSS = 0;
-    private static final int TOTAL_ATTEMTPS = 200;
+    private static final int TOTAL_ROUNDS = 200;
+    private static final String PATH = "/dev/apookash55/gametheory/players";
+    private static final String PACKAGE_PATH = "dev.apookash55.gametheory.players.";
 
     public static void main(String[] args) throws Exception{
-        String path = "/dev/apookash55/gametheory/players";
-        String pack = "dev.apookash55.gametheory.players.";
 
         Path workingDir = Paths.get("");
-        String pathString = workingDir.toAbsolutePath() + path;
+        String pathString = workingDir.toAbsolutePath() + PATH;
         List<String> files = listFilesUsingJavaIO(pathString);
 
         Player[] players = new Player[files.size()];
@@ -34,10 +34,10 @@ public class MainGame {
         int totalPlayers = files.size();
 
         for (int i = 0; i < totalPlayers; i++) {
-            String className = pack + files.get(i).split("\\.")[0];
+            String className = PACKAGE_PATH + files.get(i).split("\\.")[0];
             Class<?> c = Class.forName(className);
             Constructor<?> cons = c.getDeclaredConstructor(int.class);
-            players[i] = (Player) cons.newInstance(TOTAL_ATTEMTPS);
+            players[i] = (Player) cons.newInstance(TOTAL_ROUNDS);
             playersScores.put(players[i], 0);
         }
 
@@ -75,11 +75,10 @@ public class MainGame {
         try {
             if (dirName != null) {
                 File file = new File(dirName, fileName + ".csv");
-                if (new File(file.getParent()).mkdir()) {
-                    FileWriter fileWriter = new FileWriter(dirName + "/" + fileName + ".csv");
-                    fileWriter.append(data);
-                    fileWriter.close();
-                }
+                new File(file.getParent()).mkdir();
+                FileWriter fileWriter = new FileWriter(dirName + "/" + fileName + ".csv");
+                fileWriter.append(data);
+                fileWriter.close();
             }
             else {
                 FileWriter fileWriter = new FileWriter(fileName + ".csv");
@@ -113,10 +112,10 @@ public class MainGame {
                 player2.recordAttempt(DEFECTIVE_WIN, p2, p1);
             }
         }
-        String attempts = Player.getAttempts(player1, player2);
+        String attempts = Player.generateResult(player1, player2);
         Result res =  new Result(player1.getScore(), player2.getScore(), attempts);
-        player1.clearAttempt();
-        player2.clearAttempt();
+        player1.clearAttempts();
+        player2.clearAttempts();
         return res;
     }
 

@@ -10,8 +10,10 @@ public class TitForTat extends Player {
 
     @Override
     public Decision makeDecision() {
-        if(currentAttempt > 0) {
-            return attempts[currentAttempt-1][1];
+        int currentAttempt = getCurrentRound();
+        Decision[][] attempts = getRoundHistory();
+        if(getCurrentRound() > 0) {
+            return attempts[currentAttempt - 1][1];
         }
         return Decision.COOPERATE;
     }
