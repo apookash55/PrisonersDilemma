@@ -1,5 +1,5 @@
 # Game Rules
-1. In each round both players is given a choice to choose between to cooperate/defect<br>
+1. In each round both players are given a choice to choose between to cooperate/defect<br>
 2. Based on this rule:<br>
 ![image](https://github.com/apookash55/PrisonersDilemma/assets/44578360/f6f2f62b-da44-4350-8153-38ef34f74e4f)
 <br>Each player is awarded points<br>
@@ -13,7 +13,7 @@
 2. Sample results with the existing players with 50 rounds has been added for reference
 3. result.csv - Has the final scores of each player
 4. games.csv - Has the score of each game for each player 1 vs player 2
-5. games/gameno_player_1_VS_player_2.csv - Has detailed info of the game by which contains all the rounds choices
+5. games/gameno_player_1_VS_player_2.csv - Has detailed info of the game which contains all the rounds' choices
 # How to Add Player
-1. Simply create a branch from `master`, add your player classs and create a pull request
+1. Simply create a branch from `master`, add your player class by using the template or creating your own and create a pull request
 2. Make sure the game has been tested befor creating a pr by checking the results
