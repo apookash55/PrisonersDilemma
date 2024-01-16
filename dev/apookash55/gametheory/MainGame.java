@@ -23,7 +23,7 @@ public class MainGame {
     private static final String PATH = "/dev/apookash55/gametheory/players";
     private static final String PACKAGE_PATH = "dev.apookash55.gametheory.players.";
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         Path workingDir = Paths.get("");
         String pathString = workingDir.toAbsolutePath() + PATH;
@@ -35,9 +35,7 @@ public class MainGame {
 
         for (int i = 0; i < totalPlayers; i++) {
             String className = PACKAGE_PATH + files.get(i).split("\\.")[0];
-            Class<?> c = Class.forName(className);
-            Constructor<?> cons = c.getDeclaredConstructor();
-            players[i] = (Player) cons.newInstance();
+            players[i] = getInstance(className);
             playersScores.put(players[i], 0);
         }
 
@@ -48,14 +46,20 @@ public class MainGame {
         for(int i = 0; i < totalPlayers; i++) {
             for(int j = i + 1; j < totalPlayers; j++) {
                 Result res = playGame(players[i], players[j]);
+
                 playersScores.put(players[i], playersScores.get(players[i]) + res.getPlayer1());
                 playersScores.put(players[j], playersScores.get(players[j]) + res.getPlayer2());
-                String player1Name = players[i].getClass().getSimpleName();
-                String player2Name = players[j].getClass().getSimpleName();
+
+                String player1Name = files.get(i).split("\\.")[0];
+                String player2Name = files.get(j).split("\\.")[0];
                 matches.append(count).append(", ")
                         .append(player1Name).append(", ").append(res.getPlayer1()).append(", ")
                         .append(player2Name).append(", ").append(res.getPlayer2()).append("\n");
                 writeToCSV("matches", (count + "_" + player1Name + "VS" + player2Name), res.getAttempts());
+
+                players[i].clearGame();
+                players[j].clearGame();
+
                 ++count;
             }
         }
@@ -114,8 +118,6 @@ public class MainGame {
         }
         String attempts = Player.generateResult(player1, player2);
         Result res =  new Result(player1.getScore(), player2.getScore(), attempts);
-        player1.clearAttempts();
-        player2.clearAttempts();
         return res;
     }
 
@@ -138,5 +140,17 @@ public class MainGame {
                 .filter(file -> !file.isDirectory())
                 .map(File::getName)
                 .collect(Collectors.toList());
+    }
+
+    private static Player getInstance(String className) throws Exception {
+        try {
+            Class<?> c = Class.forName(className);
+            Constructor<?> cons = c.getDeclaredConstructor();
+            return (Player) cons.newInstance();
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
     }
 }

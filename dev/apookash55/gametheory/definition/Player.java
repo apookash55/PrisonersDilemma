@@ -45,7 +45,7 @@ public abstract class Player {
         currentRound += 1;
     }
 
-    public void clearAttempts() {
+    public void clearGame() {
         score = 0;
         roundsHistory = new ArrayList<>();
         currentRound = 0;
