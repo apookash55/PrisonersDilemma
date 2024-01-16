@@ -18,9 +18,4 @@ public class RandomPlayer extends Player {
             return Decision.DEFECT;
         }
     }
-
-    @Override
-    public void clearValues() {
-
-    }
 }

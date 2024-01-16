@@ -17,9 +17,4 @@ public class RandomDefector extends Player {
         }
         return Decision.COOPERATE;
     }
-
-    @Override
-    public void clearValues() {
-
-    }
 }

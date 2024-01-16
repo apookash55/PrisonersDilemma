@@ -67,7 +67,6 @@ public abstract class Player {
      * @return Decision
      */
     public abstract Decision makeDecision();
-    public abstract void clearValues();
 
     /**
      * Records the current round data by adding score to the player, and also records the player's and other player's choice
@@ -81,16 +80,6 @@ public abstract class Player {
         roundsHistory.get(currentRound)[0] = myChoice;
         roundsHistory.get(currentRound)[1] = playerChoice;
         currentRound += 1;
-    }
-
-    /**
-     * Clears the game data by resetting score, currentRound to 0 and clears the roundHistory once the game is finished
-     */
-    public final void clearGame() {
-        score = 0;
-        roundsHistory = new ArrayList<>();
-        currentRound = 0;
-        clearValues();
     }
 
     /**

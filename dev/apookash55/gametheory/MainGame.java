@@ -28,15 +28,18 @@ public class MainGame {
         Path workingDir = Paths.get("");
         String pathString = workingDir.toAbsolutePath() + PATH;
         List<String> files = listFilesUsingJavaIO(pathString);
+        for(int i = 0; i < files.size(); i++) {
+            files.set(i, files.get(i).split("\\.")[0]);
+        }
 
         Player[] players = new Player[files.size()];
-        HashMap<Player, Integer> playersScores = new HashMap<>();
+        HashMap<String, Integer> playersScores = new HashMap<>();
         int totalPlayers = files.size();
 
         for (int i = 0; i < totalPlayers; i++) {
-            String className = PACKAGE_PATH + files.get(i).split("\\.")[0];
+            String className = PACKAGE_PATH + files.get(i);
             players[i] = getInstance(className);
-            playersScores.put(players[i], 0);
+            playersScores.put(files.get(i), 0);
         }
 
         int count = 1;
@@ -47,18 +50,16 @@ public class MainGame {
             for(int j = i + 1; j < totalPlayers; j++) {
                 Result res = playGame(players[i], players[j]);
 
-                playersScores.put(players[i], playersScores.get(players[i]) + res.getPlayer1());
-                playersScores.put(players[j], playersScores.get(players[j]) + res.getPlayer2());
+                playersScores.put(files.get(i), playersScores.get(files.get(i)) + res.getPlayer1());
+                playersScores.put(files.get(j), playersScores.get(files.get(j)) + res.getPlayer2());
 
-                String player1Name = files.get(i).split("\\.")[0];
-                String player2Name = files.get(j).split("\\.")[0];
                 matches.append(count).append(", ")
-                        .append(player1Name).append(", ").append(res.getPlayer1()).append(", ")
-                        .append(player2Name).append(", ").append(res.getPlayer2()).append("\n");
-                writeToCSV("games", (count + "_" + player1Name + "VS" + player2Name), res.getAttempts());
+                        .append(files.get(i)).append(", ").append(res.getPlayer1()).append(", ")
+                        .append(files.get(j)).append(", ").append(res.getPlayer2()).append("\n");
+                writeToCSV("games", (count + "_" + files.get(i) + "VS" + files.get(j)), res.getAttempts());
 
-                players[i].clearGame();
-                players[j].clearGame();
+                players[i] = getInstance(PACKAGE_PATH + files.get(i));
+                players[j] = getInstance(PACKAGE_PATH + files.get(j));
 
                 ++count;
             }
@@ -67,9 +68,9 @@ public class MainGame {
         playersScores = sortByValue(playersScores);
 
         System.out.println("------ Final Score ------");
-        for(Player player : playersScores.keySet()) {
-            System.out.println(player.getClass().getSimpleName() + " : " + playersScores.get(player));
-            result.append(player.getClass().getSimpleName()).append(", ").append(playersScores.get(player)).append("\n");
+        for(String player : playersScores.keySet()) {
+            System.out.println(player + " : " + playersScores.get(player));
+            result.append(player).append(", ").append(playersScores.get(player)).append("\n");
         }
         writeToCSV(null, "results", result.toString());
         writeToCSV(null, "games", matches.toString());
@@ -128,15 +129,15 @@ public class MainGame {
         return new Result(player1.getScore(), player2.getScore(), attempts);
     }
 
-    private static HashMap<Player, Integer> sortByValue(HashMap<Player, Integer> hm)
+    private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
     {
-        List<Map.Entry<Player, Integer> > list =
+        List<Map.Entry<String, Integer> > list =
                 new LinkedList<>(hm.entrySet());
 
         list.sort((o1, o2) -> (o2.getValue()).compareTo(o1.getValue()));
 
-        HashMap<Player, Integer> temp = new LinkedHashMap<>();
-        for (Map.Entry<Player, Integer> aa : list) {
+        HashMap<String, Integer> temp = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> aa : list) {
             temp.put(aa.getKey(), aa.getValue());
         }
         return temp;

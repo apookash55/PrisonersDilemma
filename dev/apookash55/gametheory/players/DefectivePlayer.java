@@ -10,8 +10,4 @@ public class DefectivePlayer extends Player {
         return Decision.DEFECT;
     }
 
-    @Override
-    public void clearValues() {
-
-    }
 }
