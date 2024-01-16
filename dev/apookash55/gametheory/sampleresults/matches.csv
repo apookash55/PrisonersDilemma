@@ -1,0 +1,16 @@
+Match, Player 1, Player 1 Score, Player 2, Player 2 Score
+1, RandomPlayer, 44, CooperativePlayer, 9
+2, RandomPlayer, 17, RandomDefector, 32
+3, RandomPlayer, 25, TitForTat, 25
+4, RandomPlayer, 6, DefectivePlayer, 26
+5, RandomPlayer, 12, RandomCooperator, 17
+6, CooperativePlayer, 18, RandomDefector, 38
+7, CooperativePlayer, 30, TitForTat, 30
+8, CooperativePlayer, 0, DefectivePlayer, 50
+9, CooperativePlayer, 12, RandomCooperator, 42
+10, RandomDefector, 25, TitForTat, 25
+11, RandomDefector, 3, DefectivePlayer, 38
+12, RandomDefector, 9, RandomCooperator, 29
+13, TitForTat, 9, DefectivePlayer, 14
+14, TitForTat, 12, RandomCooperator, 17
+15, DefectivePlayer, 26, RandomCooperator, 6

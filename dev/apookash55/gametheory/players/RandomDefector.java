@@ -8,9 +8,6 @@ import java.util.Random;
 public class RandomDefector extends Player {
 
     private final Random random = new Random();
-    public RandomDefector(int x) {
-        super(x);
-    }
 
     @Override
     public Decision makeDecision() {

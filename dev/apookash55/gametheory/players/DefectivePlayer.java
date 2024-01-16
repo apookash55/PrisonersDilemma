@@ -5,10 +5,6 @@ import dev.apookash55.gametheory.definition.Player;
 
 public class DefectivePlayer extends Player {
 
-    public DefectivePlayer(int x) {
-        super(x);
-    }
-
     @Override
     public Decision makeDecision() {
         return Decision.DEFECT;

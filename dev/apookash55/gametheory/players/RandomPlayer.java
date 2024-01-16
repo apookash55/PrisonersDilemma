@@ -8,10 +8,6 @@ import java.util.Random;
 public class RandomPlayer extends Player {
     private final Random random = new Random();
 
-    public RandomPlayer(int x) {
-        super(x);
-    }
-
     @Override
     public Decision makeDecision() {
         int x = random.nextInt(2);
