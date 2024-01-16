@@ -98,7 +98,15 @@ public class MainGame {
     private static Result playGame(Player player1, Player player2) {
         for(int i = 0; i < TOTAL_ROUNDS; i++) {
             Decision p1 = player1.makeDecision();
+            if (p1 == null) {
+                p1 = Decision.DEFECT;
+            }
+
             Decision p2 = player2.makeDecision();
+            if (p2 == null) {
+                p2 = Decision.DEFECT;
+            }
+
             if(p1 == Decision.COOPERATE && p2 == Decision.COOPERATE) {
                 player1.recordAttempt(COOPERATIVE_WIN, p1, p2);
                 player2.recordAttempt(COOPERATIVE_WIN, p2, p1);
