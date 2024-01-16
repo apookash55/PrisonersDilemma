@@ -15,6 +15,6 @@
 4. games.csv - Has the score of each game for each player 1 vs player 2
 5. games/gameno_player_1_VS_player_2.csv - Has detailed info of the game which contains all the rounds' choices
 # How to Add Player
-1. Simply create a branch from `master`, add your player class by using the template or creating your own and create a pull request
+1. Simply create a branch from `master`, add your player class by using the template or creating your own and create a pull request to the branch `players`
 2. Your player class will extend the abstract `Player` class which has all the functionalities except the `makeDecision()` which you will implement
-3. Make sure the game has been tested befor creating a pr by checking the results
+3. Make sure the game has been tested before creating pull request by checking the results
