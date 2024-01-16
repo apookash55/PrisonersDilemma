@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An abstract class with all the defined methods except makeDecision which can be overridden and implemented
+ * An abstract class with all the defined methods except makeDecision() which can be overridden and implemented<br><br>
+ * Available Methods :<br>
+ * getRoundsHistory()<br>
+ * getCurrentRound()<br>
+ * getScore()<br>
+ * getLastRoundHistory()
  */
 public abstract class Player {
     private int score;
