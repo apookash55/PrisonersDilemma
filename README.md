@@ -6,7 +6,7 @@ If Player 1 = `COOPERATE` and Player 2 = `DEFECT`, player 1 gets 0 pt and player
 If Player 1 = `DEFECT` and Player 2 = `COOPERATE`, player 1 gets 3 pts and player 2 gets 0 pt<br>
 If Player 1 = `DEFECT` and Player 2 = `DEFECT`, both players get 1 pt<br><br>
 ![image](https://github.com/apookash55/PrisonersDilemma/assets/44578360/f6f2f62b-da44-4350-8153-38ef34f74e4f)
-2. <br>
+<br>
 3. This will go on for finite number of rounds and your goal is to get max points possible at the end<br>
 # Task
 1. Your task is to implement your logic of decision making as in when to cooperate/defect<br>
