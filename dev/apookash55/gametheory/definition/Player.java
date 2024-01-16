@@ -90,6 +90,7 @@ public abstract class Player {
         score = 0;
         roundsHistory = new ArrayList<>();
         currentRound = 0;
+        clearValues();
     }
 
     /**
