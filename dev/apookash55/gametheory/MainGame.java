@@ -117,8 +117,7 @@ public class MainGame {
             }
         }
         String attempts = Player.generateResult(player1, player2);
-        Result res =  new Result(player1.getScore(), player2.getScore(), attempts);
-        return res;
+        return new Result(player1.getScore(), player2.getScore(), attempts);
     }
 
     private static HashMap<Player, Integer> sortByValue(HashMap<Player, Integer> hm)
