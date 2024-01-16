@@ -17,4 +17,9 @@ public class RandomCooperator extends Player {
         }
         return Decision.DEFECT;
     }
+
+    @Override
+    public void clearValues() {
+
+    }
 }

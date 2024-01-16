@@ -67,6 +67,7 @@ public abstract class Player {
      * @return Decision
      */
     public abstract Decision makeDecision();
+    public abstract void clearValues();
 
     /**
      * Records the current round data by adding score to the player, and also records the player's and other player's choice

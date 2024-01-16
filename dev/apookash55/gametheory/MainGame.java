@@ -19,7 +19,7 @@ public class MainGame {
     private static final int DEFECTIVE_WIN = 1;
     private static final int ABSOLUTE_WIN = 3;
     private static final int ABSOLUTE_LOSS = 0;
-    private static final int TOTAL_ROUNDS = 1000;
+    private static final int TOTAL_ROUNDS = 1000000;
     private static final String PATH = "/dev/apookash55/gametheory/players";
     private static final String PACKAGE_PATH = "dev.apookash55.gametheory.players.";
 

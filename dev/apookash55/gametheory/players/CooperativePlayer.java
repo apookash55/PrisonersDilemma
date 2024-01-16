@@ -9,4 +9,9 @@ public class CooperativePlayer extends Player {
     public Decision makeDecision() {
         return Decision.COOPERATE;
     }
+
+    @Override
+    public void clearValues() {
+
+    }
 }

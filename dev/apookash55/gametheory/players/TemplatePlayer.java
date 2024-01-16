@@ -11,4 +11,11 @@ public class TemplatePlayer extends Player {
          */
         return null;
     }
+
+    @Override
+    public void clearValues() {
+        /*
+        use this to clear any static variables that are used
+         */
+    }
 }
