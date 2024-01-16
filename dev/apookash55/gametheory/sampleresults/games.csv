@@ -1,0 +1,16 @@
+Game, Player 1, Player 1 Score, Player 2, Player 2 Score
+1, RandomPlayer, 130, CooperativePlayer, 40
+2, RandomPlayer, 94, RandomDefector, 61
+3, RandomPlayer, 81, TitForTat, 78
+4, RandomPlayer, 24, DefectivePlayer, 102
+5, RandomPlayer, 52, RandomCooperator, 88
+6, CooperativePlayer, 68, RandomDefector, 116
+7, CooperativePlayer, 100, TitForTat, 100
+8, CooperativePlayer, 0, DefectivePlayer, 150
+9, CooperativePlayer, 32, RandomCooperator, 134
+10, RandomDefector, 89, TitForTat, 86
+11, RandomDefector, 21, DefectivePlayer, 108
+12, RandomDefector, 49, RandomCooperator, 109
+13, TitForTat, 49, DefectivePlayer, 52
+14, TitForTat, 65, RandomCooperator, 68
+15, DefectivePlayer, 84, RandomCooperator, 33

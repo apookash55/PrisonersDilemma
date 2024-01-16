@@ -1,5 +1,5 @@
 # Project exclude paths
 /out/
-/matches.csv
 /results.csv
-/matches/
+/games.csv
+/games/

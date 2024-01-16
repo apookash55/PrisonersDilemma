@@ -15,11 +15,11 @@ import java.util.stream.Stream;
 
 public class MainGame {
 
-    private static final int COOPERATIVE_WIN = 3;
+    private static final int COOPERATIVE_WIN = 2;
     private static final int DEFECTIVE_WIN = 1;
-    private static final int ABSOLUTE_WIN = 5;
+    private static final int ABSOLUTE_WIN = 3;
     private static final int ABSOLUTE_LOSS = 0;
-    private static final int TOTAL_ROUNDS = 1000;
+    private static final int TOTAL_ROUNDS = 50;
     private static final String PATH = "/dev/apookash55/gametheory/players";
     private static final String PACKAGE_PATH = "dev.apookash55.gametheory.players.";
 
@@ -41,7 +41,7 @@ public class MainGame {
 
         int count = 1;
         StringBuilder result = new StringBuilder("Player, Total Score\n");
-        StringBuilder matches = new StringBuilder("Match, Player 1, Player 1 Score, Player 2, Player 2 Score\n");
+        StringBuilder matches = new StringBuilder("Game, Player 1, Player 1 Score, Player 2, Player 2 Score\n");
 
         for(int i = 0; i < totalPlayers; i++) {
             for(int j = i + 1; j < totalPlayers; j++) {
@@ -55,7 +55,7 @@ public class MainGame {
                 matches.append(count).append(", ")
                         .append(player1Name).append(", ").append(res.getPlayer1()).append(", ")
                         .append(player2Name).append(", ").append(res.getPlayer2()).append("\n");
-                writeToCSV("matches", (count + "_" + player1Name + "VS" + player2Name), res.getAttempts());
+                writeToCSV("games", (count + "_" + player1Name + "VS" + player2Name), res.getAttempts());
 
                 players[i].clearGame();
                 players[j].clearGame();
@@ -72,7 +72,7 @@ public class MainGame {
             result.append(player.getClass().getSimpleName()).append(", ").append(playersScores.get(player)).append("\n");
         }
         writeToCSV(null, "results", result.toString());
-        writeToCSV(null, "matches", matches.toString());
+        writeToCSV(null, "games", matches.toString());
     }
 
     private static void writeToCSV(String dirName, String fileName, String data) {
