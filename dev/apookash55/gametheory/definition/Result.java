@@ -1,6 +1,6 @@
 package dev.apookash55.gametheory.definition;
 
-public class Result {
+public final class Result {
     private final int player1;
     private final int player2;
     private final String attempts;
