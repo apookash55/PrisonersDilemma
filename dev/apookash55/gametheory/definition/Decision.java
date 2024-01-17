@@ -14,7 +14,8 @@ public enum Decision {
         this.value = value;
     }
 
-    public char toChar() {
-        return value;
+    @Override
+    public String toString() {
+        return String.valueOf(value);
     }
 }

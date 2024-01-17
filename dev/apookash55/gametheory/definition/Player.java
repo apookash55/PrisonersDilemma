@@ -12,12 +12,10 @@ import java.util.List;
  * getLastRoundHistory()
  */
 public abstract class Player {
-    private int score;
-    private List<Decision[]> roundsHistory;
+    private final List<Decision[]> roundsHistory;
     private int currentRound;
 
     public Player() {
-        score = 0;
         roundsHistory = new ArrayList<>();
         currentRound = 0;
     }
@@ -40,13 +38,6 @@ public abstract class Player {
         return currentRound;
     }
 
-    /**
-     * Returns the current score
-     * @return int
-     */
-    public final int getScore() {
-        return score;
-    }
 
     /**
      * Returns the last round data as an Array of Decision with first and second index is player's choice and other player's choice respectively
@@ -69,31 +60,15 @@ public abstract class Player {
     public abstract Decision makeDecision();
 
     /**
-     * Records the current round data by adding score to the player, and also records the player's and other player's choice
-     * @param currentScore Score gained by the player in the current round
+     * Records the current round data by adding the player's and other player's choice
+     *
      * @param myChoice Decision made by the player
      * @param playerChoice Decision made by the other player
      */
-    public final void recordAttempt(int currentScore, Decision myChoice, Decision playerChoice) {
-        score += currentScore;
+    public final void recordLastRound(Decision myChoice, Decision playerChoice) {
         roundsHistory.add(new Decision[2]);
         roundsHistory.get(currentRound)[0] = myChoice;
         roundsHistory.get(currentRound)[1] = playerChoice;
         currentRound += 1;
-    }
-
-    /**
-     * Generates CSV data from two players' round history once the game is finished
-     * @param player1 First Player object
-     * @param player2 Second Player object
-     * @return CSV of choices made by Player 1 and Player 2 respectively
-     */
-    public static String generateResult(Player player1, Player player2) {
-        List<Decision[]> attempts = player1.roundsHistory;
-        StringBuilder res = new StringBuilder(player1.getClass().getSimpleName() + ", " + player2.getClass().getSimpleName() + '\n');
-        for (int i = 0; i < player1.currentRound; i++) {
-            res.append(attempts.get(i)[0].toChar()).append(", ").append(attempts.get(i)[1].toChar()).append('\n');
-        }
-        return res.toString();
     }
 }

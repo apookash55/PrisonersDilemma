@@ -19,7 +19,7 @@ public class MainGame {
     private static final int DEFECTIVE_WIN = 1;
     private static final int ABSOLUTE_WIN = 3;
     private static final int ABSOLUTE_LOSS = 0;
-    private static final int TOTAL_ROUNDS = 1000;
+    private static final int TOTAL_ROUNDS = 10;
     private static final String PATH = "/dev/apookash55/gametheory/players";
     private static final String PACKAGE_PATH = "dev.apookash55.gametheory.players.";
 
@@ -97,6 +97,8 @@ public class MainGame {
     }
 
     private static Result playGame(Player player1, Player player2) {
+        Result res = new Result(player1, player2);
+
         for(int i = 0; i < TOTAL_ROUNDS; i++) {
             Decision p1 = player1.makeDecision();
             if (p1 == null) {
@@ -107,26 +109,28 @@ public class MainGame {
             if (p2 == null) {
                 p2 = Decision.DEFECT;
             }
-
             if(p1 == Decision.COOPERATE && p2 == Decision.COOPERATE) {
-                player1.recordAttempt(COOPERATIVE_WIN, p1, p2);
-                player2.recordAttempt(COOPERATIVE_WIN, p2, p1);
+                player1.recordLastRound(p1, p2);
+                player2.recordLastRound(p2, p1);
+                res.updateResult(COOPERATIVE_WIN, COOPERATIVE_WIN, p1, p2);
             }
             else if(p1 == Decision.COOPERATE && p2 == Decision.DEFECT) {
-                player1.recordAttempt(ABSOLUTE_LOSS, p1, p2);
-                player2.recordAttempt(ABSOLUTE_WIN, p2, p1);
+                player1.recordLastRound(p1, p2);
+                player2.recordLastRound( p2, p1);
+                res.updateResult(ABSOLUTE_LOSS, ABSOLUTE_WIN, p1, p2);
             }
             else if(p1 == Decision.DEFECT && p2 == Decision.COOPERATE) {
-                player1.recordAttempt(ABSOLUTE_WIN, p1, p2);
-                player2.recordAttempt(ABSOLUTE_LOSS, p2, p1);
+                player1.recordLastRound(p1, p2);
+                player2.recordLastRound(p2, p1);
+                res.updateResult(ABSOLUTE_WIN, ABSOLUTE_LOSS, p1, p2);
             }
             else if(p1 == Decision.DEFECT && p2 == Decision.DEFECT) {
-                player1.recordAttempt(DEFECTIVE_WIN, p1, p2);
-                player2.recordAttempt(DEFECTIVE_WIN, p2, p1);
+                player1.recordLastRound(p1, p2);
+                player2.recordLastRound(p2, p1);
+                res.updateResult(DEFECTIVE_WIN, DEFECTIVE_WIN, p1, p2);
             }
         }
-        String attempts = Player.generateResult(player1, player2);
-        return new Result(player1.getScore(), player2.getScore(), attempts);
+        return res;
     }
 
     private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
