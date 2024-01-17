@@ -1,11 +1,11 @@
 package dev.apookash55.gametheory.players;
 
-import dev.apookash55.gametheory.definition.Decision;
-import dev.apookash55.gametheory.definition.Player;
+import dev.apookash55.definition.Decision;
+import dev.apookash55.definition.Player;
 
 import java.util.Random;
 
-public class RandomDefector extends Player {
+public class RandomCooperator extends Player {
 
     private final Random random = new Random();
 
@@ -13,8 +13,8 @@ public class RandomDefector extends Player {
     public Decision makeDecision() {
         int x = random.nextInt(10);
         if (x >= 7) {
-            return Decision.DEFECT;
+            return Decision.COOPERATE;
         }
-        return Decision.COOPERATE;
+        return Decision.DEFECT;
     }
 }

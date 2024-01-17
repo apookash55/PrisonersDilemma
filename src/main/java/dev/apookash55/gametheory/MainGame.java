@@ -1,8 +1,8 @@
 package dev.apookash55.gametheory;
 
-import dev.apookash55.gametheory.definition.Decision;
-import dev.apookash55.gametheory.definition.Player;
-import dev.apookash55.gametheory.definition.Result;
+import dev.apookash55.definition.Decision;
+import dev.apookash55.definition.Player;
+import dev.apookash55.definition.Result;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,17 +20,16 @@ public class MainGame {
     private static final int ABSOLUTE_WIN = 3;
     private static final int ABSOLUTE_LOSS = 0;
     private static final int TOTAL_ROUNDS = 10;
-    private static final String PATH = "/dev/apookash55/gametheory/players";
+    private static final String PLAYERS_PATH = "/src/main/java/dev/apookash55/gametheory/players/";
+    private static final String RESULTS_PATH = "/src/main/resources/";
     private static final String PACKAGE_PATH = "dev.apookash55.gametheory.players.";
 
     public static void main(String[] args) throws Exception {
 
         Path workingDir = Paths.get("");
-        String pathString = workingDir.toAbsolutePath() + PATH;
+        String pathString = workingDir.toAbsolutePath() + PLAYERS_PATH;
         List<String> files = listFilesUsingJavaIO(pathString);
-        for(int i = 0; i < files.size(); i++) {
-            files.set(i, files.get(i).split("\\.")[0]);
-        }
+        files.replaceAll(s -> s.split("\\.")[0]);
 
         Player[] players = new Player[files.size()];
         HashMap<String, Integer> playersScores = new HashMap<>();
@@ -74,25 +73,31 @@ public class MainGame {
         }
         writeToCSV(null, "results", result.toString());
         writeToCSV(null, "games", matches.toString());
+
+        System.out.println("\nResults generated in " + workingDir.toAbsolutePath() + RESULTS_PATH);
     }
 
     private static void writeToCSV(String dirName, String fileName, String data) {
         try {
+            Path workingDir = Paths.get("");
             if (dirName != null) {
-                File file = new File(dirName, fileName + ".csv");
+                String pathString = workingDir.toAbsolutePath() + RESULTS_PATH + dirName;
+                File file = new File(pathString, fileName + ".csv");
                 new File(file.getParent()).mkdir();
-                FileWriter fileWriter = new FileWriter(dirName + "/" + fileName + ".csv");
+                FileWriter fileWriter = new FileWriter(file);
                 fileWriter.append(data);
                 fileWriter.close();
             }
             else {
-                FileWriter fileWriter = new FileWriter(fileName + ".csv");
+                String pathString = workingDir.toAbsolutePath() + RESULTS_PATH;
+                File file = new File(pathString, fileName + ".csv");
+                FileWriter fileWriter = new FileWriter(file);
                 fileWriter.append(data);
                 fileWriter.close();
             }
         }
         catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace(System.out);
         }
     }
 
